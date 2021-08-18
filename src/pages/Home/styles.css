@@ -1,0 +1,2 @@
+.header{width:100%;position:fixed;background-color:red}.header .toolbar{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:64px;padding:0 24px;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.main{height:100vh;display:-webkit-box;display:-ms-flexbox;display:flex;width:1200px;margin:0 auto}.main .navbar{background-color:blue;width:350px;padding:24px}.main .feed{background-color:yellow;width:100%;padding:24px}
+/*# sourceMappingURL=styles.css.map */
