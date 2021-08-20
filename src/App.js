@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import theme from './theme';
 
+import './mock/index';
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
