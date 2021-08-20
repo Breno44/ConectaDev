@@ -31,12 +31,15 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 24px',
   },
   image: {
-    height: 370,
+    height: 300,
     width: '100%',
     maxWidth: '100%',
   },
   content: {
     padding: 0,
+  },
+  favorite: {
+    marginLeft: 'auto',
   },
 }));
 
