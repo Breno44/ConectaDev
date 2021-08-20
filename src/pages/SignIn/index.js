@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { LockOutlined } from '@material-ui/icons';
+import axios from '../../utils/axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +50,10 @@ function Copyright() {
 
 export function SignIn() {
   const classes = useStyles();
+
+  function handleSignIn() {
+    axios.get('api/home/login').then((res) => console.log(res));
+  }
 
   return (
     <Grid container className={classes.root}>
@@ -91,7 +96,7 @@ export function SignIn() {
               name="password"
               autoComplete="current-password"
             />
-            <Button fullWidth variant="contained" color="primary" className={classes.button}>
+            <Button fullWidth variant="contained" color="primary" className={classes.button} onClick={handleSignIn}>
               Entrar
             </Button>
             <Grid container>
