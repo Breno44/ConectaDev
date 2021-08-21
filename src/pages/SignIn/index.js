@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { FormHelperText, Typography } from '@material-ui/core';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -10,7 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { LockOutlined } from '@material-ui/icons';
-import axios from '../../utils/axios';
+import authService from '../../services/authService';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,14 +51,30 @@ function Copyright() {
 
 export function SignIn() {
   const classes = useStyles();
+  const navigate = useHistory();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  function handleSignIn() {
-    axios.get('api/home/login').then((res) => console.log(res));
+  async function handleSignIn() {
+    try {
+      await authService.signIn(email, password);
+      navigate.push('/');
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+    }
   }
-
   return (
     <Grid container className={classes.root}>
-      <Grid item container direction="column" justify="center" alignItems="center" md={7} className={classes.image}>
+      <Grid
+        item
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        md={7}
+        className={classes.image}
+      >
         <Typography style={{ color: '#fff', fontSize: 35, lineHeight: '45px', textAlign: 'center' }}>
           <strong>Simplificando a forma de conectar desenvolvedores de software</strong>
         </Typography>
@@ -85,6 +102,8 @@ export function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -93,12 +112,16 @@ export function SignIn() {
               fullWidth
               id="password"
               label="Senha"
+              type="password"
               name="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button fullWidth variant="contained" color="primary" className={classes.button} onClick={handleSignIn}>
               Entrar
             </Button>
+            {errorMessage && <FormHelperText error>{errorMessage}</FormHelperText>}
             <Grid container>
               <Grid item>
                 <Link>Esqueceu sua senha?</Link>
