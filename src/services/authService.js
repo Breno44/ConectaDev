@@ -1,13 +1,12 @@
 import axios from '../utils/axios';
 
 class AuthService {
-  signIn = (email, password) => {
+  signInWithToken = () => {
     return new Promise((resolve, reject) => {
       axios
-        .post('/api/home/login', { email, password })
+        .post('/api/home/me')
         .then((response) => {
           if (response.data.user) {
-            // this.setUser(response.data.user);
             resolve(response.data.user);
           } else {
             reject(response.data.error);
@@ -19,17 +18,14 @@ class AuthService {
     });
   };
 
-  setUser = (user) => {
-    localStorage.setItem('user', JSON.stringify(user));
+  setToken = (token) => {
+    localStorage.setItem('accessToken', token);
   };
 
-  getUser = () => {
-    const user = localStorage.getItem('user');
-    return user;
-  };
+  getToken = () => localStorage.getItem('accessToken');
 
   isAuthenticated = () => {
-    return !!this.getUser();
+    return !!this.getToken();
   };
 }
 
