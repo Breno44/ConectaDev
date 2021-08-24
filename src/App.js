@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import Auth from './components/auth';
 
 import theme from './theme';
 
@@ -16,10 +17,12 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <GuestRoute path="/Sign-in" component={SignIn} />
-          </Switch>
+          <Auth>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <GuestRoute path="/Sign-in" component={SignIn} />
+            </Switch>
+          </Auth>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>

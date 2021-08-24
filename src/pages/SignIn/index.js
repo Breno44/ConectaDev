@@ -10,11 +10,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { LockOutlined } from '@material-ui/icons';
-import authService from '../../services/authService';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import signIn from '../../actions/accountActions';
+import { signIn } from '../../actions/accountActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,8 +58,6 @@ export function SignIn() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
-
-  const account = useSelector((state) => state);
 
   async function handleSignIn() {
     try {
