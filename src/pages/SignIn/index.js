@@ -65,11 +65,10 @@ export function SignIn() {
   async function handleSignIn() {
     try {
       await dispatch(signIn(email, password));
-      // await authService.signIn(email, password);
-      // navigate.push('/');
+
+      navigate.push('/');
     } catch (error) {
-      console.log(error);
-      // setErrorMessage(error.response.data.message);
+      setErrorMessage(error.response.data.message);
     }
   }
   return (

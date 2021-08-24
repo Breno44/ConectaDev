@@ -18,7 +18,7 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/Sign-in" component={SignIn} />
+            <GuestRoute path="/Sign-in" component={SignIn} />
           </Switch>
         </BrowserRouter>
       </ThemeProvider>
