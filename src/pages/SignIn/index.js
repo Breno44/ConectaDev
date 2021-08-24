@@ -12,6 +12,9 @@ import Link from '@material-ui/core/Link';
 import { LockOutlined } from '@material-ui/icons';
 import authService from '../../services/authService';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
+import signIn from '../../actions/accountActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,13 +58,18 @@ export function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
+
+  const account = useSelector((state) => state);
 
   async function handleSignIn() {
     try {
-      await authService.signIn(email, password);
-      navigate.push('/');
+      await dispatch(signIn(email, password));
+      // await authService.signIn(email, password);
+      // navigate.push('/');
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      console.log(error);
+      // setErrorMessage(error.response.data.message);
     }
   }
   return (
