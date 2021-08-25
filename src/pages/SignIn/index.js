@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
   form: {
     margin: theme.spacing(0, 4),
   },
+  right: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 }));
 
 function Copyright() {
@@ -65,9 +70,11 @@ export function SignIn() {
 
       navigate.push('/');
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      setErrorMessage('Alguma coisa deu errado :(');
+      console.error(error.message);
     }
   }
+  
   return (
     <Grid container className={classes.root}>
       <Grid
@@ -89,7 +96,7 @@ export function SignIn() {
           <strong>Compartilhe seu conhecimento com toda nossa rede de desenvolvedores de software</strong>
         </Typography>
       </Grid>
-      <Grid item md={5}>
+      <Grid item md={5} className={classes.right}>
         <Box display="flex" flexDirection="column" alignItems="center" mt={8}>
           <Avatar className={classes.avatar}>
             <LockOutlined />

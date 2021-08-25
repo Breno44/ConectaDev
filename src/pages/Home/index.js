@@ -1,6 +1,6 @@
 import React from 'react';
 // import './styles.css';
-import { Header } from './components/Header';
+import { Header } from './components/Header/index';
 import { NavBar } from './components/NavBar';
 import { Feed } from './components/Feed';
 
