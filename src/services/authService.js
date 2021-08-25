@@ -1,3 +1,4 @@
+
 import axios from '../utils/axios';
 
 class AuthService {
@@ -24,7 +25,7 @@ class AuthService {
   signInWithToken = () => {
     return new Promise((resolve, reject) => {
       axios
-        .post('/api/home/me')
+        .post('/api/home/me') // envio o token pelo header
         .then((response) => {
           if (response.data.user) {
             resolve(response.data.user);

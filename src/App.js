@@ -1,31 +1,34 @@
+
 import React from 'react';
-import { Home } from './pages/Home';
-import GuestRoute from './routes/GuestRoute';
-import { SignIn } from './pages/SignIn';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store';
-import Auth from './components/auth';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import theme from './theme';
+import Auth from './components/Auth';
+import GuestRoute from './routes/GuestRoute';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
+// import theme from './theme';
+import createTheme from './theme';
+import { useSettings } from './context/SettingsContext';
 
-import './mock/index';
+import './mock';
 
 function App() {
+  const { settings } = useSettings();
+
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Auth>
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <GuestRoute path="/Sign-in" component={SignIn} />
-            </Switch>
-          </Auth>
-        </BrowserRouter>
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={createTheme(settings)}>
+      <BrowserRouter>
+        <Auth>
+          <Routes>
+            <GuestRoute path="/sign-in" element={<SignIn />} />
+            <GuestRoute path="/sign-up" element={<SignUp />} />
+            <Route path="//*" element={<Home />} />
+          </Routes>
+        </Auth>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
