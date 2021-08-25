@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,10 +8,10 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
 import MessageIcon from '@material-ui/icons/Message';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,55 +42,65 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function PostCard({ post }) {
+function PostCard({ post }) {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const handlePostClick = () => {
+    navigate(`/post/${post.slug}`);
+  };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={handlePostClick}>
       <CardHeader
-        avatar={<Avatar src={post.author.avatar} />}
+        avatar={<Avatar src={post.author?.avatar} />}
         title={<Typography variant="h6">{post.title}</Typography>}
         subheader={
           <div className={classes.subheader}>
             <Typography variant="caption" className={classes.caption}>
-              {'Avaliado por'}
+              Escrito por
             </Typography>
             <Typography variant="subtitle2" className={classes.caption}>
               {post.author.name}
             </Typography>
-            <Typography variant="subtitle2" className={classes.caption}>
-              {post.date}
+            <Typography variant="caption" className={classes.caption}>
+              {moment(post.date).fromNow()}
             </Typography>
           </div>
         }
-      ></CardHeader>
-
+      />
       <CardContent className={classes.content}>
-        <Typography variant="body1" className={classes.message}>
+        <Typography className={classes.message} variant="body1">
           {post.hashtags}
         </Typography>
         <CardActionArea>
-          <img src={post.image} alt=":(" className={classes.image} />
+          <img src={post.image} className={classes.image} alt="img" />
         </CardActionArea>
       </CardContent>
-
       <CardActions disableSpacing>
         <IconButton aria-label="like">
           <FavoriteIcon />
-          <Typography style={{ cursor: 'pointer' }} color="textSecondary" variant="body2">
-            {'10'}
+          <Typography
+            style={{ cursor: 'pointer' }}
+            color="textSecondary"
+            variant="body2"
+          >
+            {post.likes}
           </Typography>
         </IconButton>
         <IconButton aria-label="comment">
           <MessageIcon />
-          <Typography className={classes.reactions} color="textSecondary" variant="body2">
-            {'30'}
+          <Typography
+            className={classes.reactions}
+            color="textSecondary"
+            variant="body2"
+          >
+            {post.comments}
           </Typography>
-        </IconButton>
-        <IconButton aria-label="favorite" className={classes.favorite}>
-          <BookmarkIcon />
         </IconButton>
       </CardActions>
     </Card>
   );
 }
+
+export default PostCard;
