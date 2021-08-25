@@ -1,43 +1,47 @@
+
 import React from 'react';
-// import './styles.css';
-import { Header } from './components/Header/index';
-import { NavBar } from './components/NavBar';
-import { Feed } from './components/Feed';
-
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-
 import { makeStyles } from '@material-ui/core/styles';
+import { Routes, Route } from 'react-router-dom';
 
-const useStyles = makeStyles({
+import Header from './Header';
+import NewPost from '../Post/New';
+import Feed from '../Feed';
+import Post from '../Post';
+import Profile from '../Profile';
+
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: theme.palette.background.dark,
   },
   main: {
-    height: '100vh',
     padding: 24,
   },
   toolbar: {
     minHeight: 64,
   },
-});
+}));
 
-export function Home() {
+function Home() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Header />
-      <div className={classes.toolbar}></div>
+      <div className={classes.toolbar} />
       <main className={classes.main}>
-        <Container maxWidth="lg">
-          <Box display="flex">
-            <NavBar />
-            <Feed />
-          </Box>
-        </Container>
+        <Routes>
+          <Route path="/" element={<Feed />} />
+          <Route path="/:username" element={<Profile />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/post/new" element={<NewPost />} />
+          <Route path="/post/:slug" element={<Post />} />
+          <Route path="*" element={<h1>404!</h1>} />
+        </Routes>
       </main>
     </div>
   );
 }
+
+export default Home;

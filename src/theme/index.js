@@ -1,52 +1,71 @@
-import { createTheme } from '@material-ui/core/styles';
-import indigo from '@material-ui/core/colors/indigo';
-import orange from '@material-ui/core/colors/orange';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { colors } from '@material-ui/core';
+import _ from 'lodash';
+import typography from './typography';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      dark: indigo['A700'],
-      main: indigo['A400'],
-      light: indigo['A200'],
-    },
-    secondary: {
-      dark: orange['A700'],
-      main: orange['A400'],
-      light: orange['A200'],
-    },
-    typography: {
-      h1: {
-        fontWeight: 500,
-        fontSize: 35,
-        letterSpacing: '-0.24px',
+const baseConfig = {
+  typography,
+};
+
+const themes = [
+  {
+    darkMode: false,
+    palette: {
+      type: 'light',
+      primary: {
+        dark: colors.indigo.A700,
+        main: colors.indigo.A400,
+        light: colors.indigo.A200,
       },
-      h2: {
-        fontWeight: 500,
-        fontSize: 29,
-        letterSpacing: '-0.24px',
+      secondary: {
+        dark: colors.orange.A700,
+        main: colors.orange.A700,
+        light: colors.orange.A200,
       },
-      h3: {
-        fontWeight: 500,
-        fontSize: 24,
-        letterSpacing: '-0.06px',
+      background: {
+        default: colors.common.white,
+        dark: '#f4f6f8',
+        paper: colors.common.white,
       },
-      h4: {
-        fontWeight: 500,
-        fontSize: 20,
-        letterSpacing: '-0.06px',
-      },
-      h5: {
-        fontWeight: 500,
-        fontSize: 16,
-        letterSpacing: '-0.05px',
-      },
-      h6: {
-        fontWeight: 500,
-        fontSize: 14,
-        letterSpacing: '-0.05px',
+      text: {
+        primary: colors.blueGrey[900],
+        secondary: colors.blueGrey[600],
       },
     },
   },
-});
+  {
+    darkMode: true,
+    palette: {
+      type: 'dark',
+      primary: {
+        dark: colors.indigo.A700,
+        main: colors.indigo.A400,
+        light: colors.indigo.A200,
+      },
+      secondary: {
+        dark: colors.indigo.A700,
+        main: colors.indigo.A400,
+        light: colors.indigo.A200,
+      },
+      background: {
+        default: '#282C34',
+        dark: '#1c2025',
+        paper: '#282C34',
+      },
+      text: {
+        primary: '#e6e5e8',
+        secondary: '#adb0bb',
+      },
+    },
+  },
+];
 
-export default theme;
+export default function createTheme(settings = {}) {
+  const themeConfig = themes.find(
+    (theme) => theme.darkMode === settings.darkMode,
+  );
+
+  const theme = createMuiTheme(_.merge({}, baseConfig, themeConfig));
+
+  return theme;
+}

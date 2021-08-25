@@ -1,4 +1,9 @@
-import { LOGIN_SUCCESS, SILENT_LOGIN, SIGNOUT } from '../actions/accountActions';
+
+import {
+  LOGIN_SUCCESS,
+  SILENT_LOGIN,
+  SIGNOUT,
+} from '../actions/accountActions';
 
 const INITIAL_STATE = {
   user: null,
@@ -21,7 +26,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
     case SIGNOUT: {
       return {
         ...state,
-        user: null
+        user: null,
       };
     }
     default: {
