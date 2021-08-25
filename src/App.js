@@ -1,6 +1,6 @@
 import React from 'react';
 import { Home } from './pages/Home';
-import { GuestRoute } from './routes/GuestRoute';
+import GuestRoute from './routes/GuestRoute';
 import { SignIn } from './pages/SignIn';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
